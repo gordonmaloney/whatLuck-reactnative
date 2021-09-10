@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { View, Text, FlatList } from "react-native";
 import { useDispatch } from "react-redux";
-
+import { Card } from "react-native-elements";
 import { getPotlucks } from "../actions/potlucks";
-
+import Potluck from "./Potluck";
 export default function PotluckList() {
     const dispatch = useDispatch();
 
@@ -19,8 +19,9 @@ export default function PotluckList() {
   return (
     <View>
         <FlatList
+            keyExtractor={item => item._id}
               data={potlucks}
-              renderItem={({item}) => <Text>{item.potluckTitle} - hosted by {item.potluckHost}</Text>}
+              renderItem={({item}) => <View><Potluck item={item} /></View>}
             />
     </View>
   );

@@ -13,7 +13,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Home'
 import CreatePotluck from './CreatePotluck'
 import PotluckList from "./PotluckList";
-
+import PotluckStandalone from "./PotluckStandalone";
 
 function HomeScreen({ navigation }) {
   return (
@@ -52,6 +52,8 @@ export default function Main() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="CreatePotluck" component={CreatePotluckScreen} />
         <Stack.Screen name="PotluckList" component={PotluckListScreen} />
+        <Stack.Screen name="PotluckStandalone" component={PotluckStandalone} />
+
       </Stack.Navigator>
 
       <SpeedDialMenu />
