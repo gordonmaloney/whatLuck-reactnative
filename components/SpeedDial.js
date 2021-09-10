@@ -9,23 +9,23 @@ const SpeedDialMenu = () => {
   return (
     <SpeedDial
       isOpen={open}
-      icon={{ name: 'edit', color: '#fff' }}
-      openIcon={{ name: 'close', color: '#fff' }}
+      icon={{ name: 'plus', type: "font-awesome", color: '#fff' }}
+      openIcon={{ name: 'minus', type: "font-awesome", color: '#fff' }}
       onOpen={() => setOpen(!open)}
       onClose={() => setOpen(!open)}
     >
       <SpeedDial.Action
-        icon={{ name: 'add', color: '#fff' }}
+        icon={{ name: 'home', type: "font-awesome", color: '#fff' }}
         title="Home"
         onPress={() => navigation.navigate('Home')}
       />
     <SpeedDial.Action
-        icon={{ name: 'delete', color: '#fff' }}
+        icon={{ name: 'pencil', type: "font-awesome", color: '#fff' }}
         title="Create"
         onPress={() => navigation.navigate('CreatePotluck')}
       />
       <SpeedDial.Action
-        icon={{ name: 'delete', color: '#fff' }}
+        icon={{ name: 'list', type: "font-awesome", color: '#fff' }}
         title="list"
         onPress={() => navigation.navigate('PotluckList')}
       />
