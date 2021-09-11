@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { View, Text, FlatList } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
-
+import Bringing from './Bringing'
 export default function PotluckStandalone(props) {
   const potluck = props.route.params.potluck.potluck;
 
@@ -57,6 +57,9 @@ export default function PotluckStandalone(props) {
 
         <Reply />
       </Card>
+
+      <Bringing potluck={potluck} />
+
     </View>
   );
 }
