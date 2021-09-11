@@ -14,6 +14,7 @@ export const getPotlucks = () => async (dispatch) => {
 
 export const createPotluck = (post) => async (dispatch) => {
   try {
+    console.log(post)
     const { data } = await api.createPotluck(post);
 
     dispatch({ type: CREATE, payload: data });

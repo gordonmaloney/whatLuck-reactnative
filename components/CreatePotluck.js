@@ -1,38 +1,113 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, Keyboard, TouchableWithoutFeedback, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { Formik } from "formik";
+import ReactChipsInput from 'react-native-chips';
+//import { TextField } from 'rn-material-ui-textfield';
+import { Input, CheckBox } from "react-native-elements";
+import randomWords from "random-words";
+import { createPotluck } from "../actions/potlucks";
 
 export default function CreatePotluck() {
+
+  const [potluckData, setPotluckData] = useState({
+    potluckHost: "",
+    potluckTitle: "",
+    potluckTheme: "",
+    essentials: [],
+    idCode: randomWords(3).join("-"),
+    private: false,
+    errMessHost: false,
+    errMessTitle: false
+  });
+
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (potluckData) => {
+    
+    console.log(potluckData)
+    dispatch(createPotluck(potluckData));
+
+    //reset form
+    //setPotluckData({ ...potluckData, potluckHost: "", potluckTitle: "", potluckTheme: "", essentials: [], private: false, errMessHost: false, errMessTitle: false })
+
+    //window.location.href = `/potlucks/${potluckData.idCode}`
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Create a Potluck</Text>
 
-      <Formik
-        initialValues={{ title: "", host: "", theme: ""}}
-        onSubmit={(values) => console.log(values)}
-      >
+
         <View>
-          <TextInput
+          <Input
             placeholder="Title"
-            onChangeText={() => {}}
             onBlur={() => {}}
+            value={potluckData.potluckTitle}
+            onChangeText={(e) =>
+              setPotluckData({ ...potluckData, potluckTitle: e, errMessTitle: false })
+            }
           />
-          <TextInput
+          <Input
             placeholder="Host"
-            onChangeText={() => {}}
             onBlur={() => {}}
+            value={potluckData.potluckHost}
+            onChangeText={(e) =>
+              setPotluckData({ ...potluckData, potluckHost: e, errMessHost: false})
+            }
           />
-          <TextInput
+          <Input
             placeholder="Theme"
-            onChangeText={() => {}}
             onBlur={() => {}}
+            value={potluckData.potluckTheme}
+            onChangeText={(e) =>
+              setPotluckData({ ...potluckData, potluckTheme: e })
+            }
           />
-          <Button onPress={() => console.log("submitted")} title="Submit" />
+          
+
+< ReactChipsInput 
+    label="Essentials" initialChips={[]} 
+    //onChangeChips={(chips) => console.log(chips)} 
+    alertRequired={false} 
+    chipStyle={{ borderColor: 'blue', backgroundColor: 'blue' }} 
+    inputStyle={{fontSize: 14}} 
+    labelStyle={{ color: 'grey', fontSize: 14, padding: 0}} 
+    labelOnBlur={{ color: '#666' }} 
+    //value={potluckData.essentials}
+    onChangeChips={(chips) => setPotluckData({ ...potluckData, essentials: chips })}
+
+    />
+
+
+<CheckBox
+  title='Private?'
+  checked={potluckData.private}
+  onPress={() => setPotluckData({...potluckData, private: !potluckData.private})}
+/>
+    
+          <Button 
+                            onPress={() => {
+                              handleSubmit(
+                                potluckData
+                              );}}
+            
+           title="Submit" />
         </View>
-      </Formik>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "90%",
+    paddingTop: 20
+  },
+  chipinput: {
+    height: 100
+  }
+});
