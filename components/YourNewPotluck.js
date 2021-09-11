@@ -19,7 +19,6 @@ export default function YourNewPotluck(props) {
   );
 
 
-     console.log("your new", potluck)
 
   const Reply = () => {
     return (
@@ -43,7 +42,6 @@ export default function YourNewPotluck(props) {
     );
   };
 
-  console.log("length", potluck)
   if (!potluck) {
     return (
      <Text>Loading...</Text> 

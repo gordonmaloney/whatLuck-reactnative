@@ -56,8 +56,13 @@ export default function PotluckStandalone(props) {
     );
   };
 
+  if (!potluck) {
+    return (
+     <Text>Loading...</Text> 
+    )
+  } else {
   return (
-          <ScrollView
+            <ScrollView
             refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -94,5 +99,7 @@ export default function PotluckStandalone(props) {
       <Bringing potluck={potluck}/>
 
     </ScrollView>
+  
   );
+}
 }
