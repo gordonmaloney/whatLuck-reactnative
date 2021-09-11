@@ -14,6 +14,7 @@ import Home from './Home'
 import CreatePotluck from './CreatePotluck'
 import PotluckList from "./PotluckList";
 import PotluckStandalone from "./PotluckStandalone";
+import YourNewPotluck from "./YourNewPotluck";
 
 function HomeScreen({ navigation }) {
   return (
@@ -29,7 +30,6 @@ function CreatePotluckScreen({ navigation }) {
       <CreatePotluck />
 
     </View>
-    
   );
 }
 
@@ -37,11 +37,11 @@ function PotluckListScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <PotluckList />
-      
-
     </View>
   );
 }
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +53,7 @@ export default function Main() {
         <Stack.Screen name="CreatePotluck" component={CreatePotluckScreen} />
         <Stack.Screen name="PotluckList" component={PotluckListScreen} />
         <Stack.Screen name="PotluckStandalone" component={PotluckStandalone} />
-
+        <Stack.Screen name="YourNewPotluck" component={YourNewPotluck} />
       </Stack.Navigator>
 
       <SpeedDialMenu />

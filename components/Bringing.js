@@ -13,12 +13,11 @@ import {
 import { useDispatch } from "react-redux";
 import ReactChipsInput from "react-native-chips";
 import { Input, CheckBox } from "react-native-elements";
-import { Card } from "react-native-elements/dist/card/Card";
+import { Card } from "react-native-elements/";
 import { updatePotluck } from "../actions/potlucks";
 
-export default function Bringing(potluck) {
 
-console.log(potluck)
+export default function Bringing({potluck}) {
 
     const [bringerData, setBringerData] = useState({
     bringer: "",
@@ -28,7 +27,9 @@ console.log(potluck)
   });
   const dispatch = useDispatch();
 
-  const handleSubmit = (potluck, bringerData) => {
+  const handleSubmit = (e) => {
+    console.log(potluck)
+
     potluck.replies = [...potluck.replies, bringerData];
 
     console.log(potluck);
@@ -36,12 +37,15 @@ console.log(potluck)
     dispatch(updatePotluck(potluck._id, potluck));
 
     //reset form
-    //setBringerData({ bringer: "", bringing: [], errMessBringer: false, errMessBringing: false, });
+    setBringerData({ bringer: "", bringing: [], errMessBringer: false, errMessBringing: false})
   };
 
   return (
     <View>
       <Card>
+          <Card.Title>What are you bringing?</Card.Title>
+        <Card.Divider />
+
 
         <Input
           placeholder="Bringer"

@@ -1,38 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ScrollView, View, Text, FlatList, RefreshControl, SafeAreaView } from "react-native";
+import { ScrollView, View, Text, FlatList } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import Bringing from './Bringing'
-import { updatePotluck } from "../actions/potlucks";
-import { render } from "react-dom";
 
 
-const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
+export default function YourNewPotluck(props) {
 
-export default function PotluckStandalone(props) { 
   const potlucks = useSelector((state) => state.potlucks);
+
+
+ 
+
   const potluck = potlucks.find(
     ({ idCode }) => idCode === props.route.params.idCode
   );
 
-  const [refreshing, setRefreshing] = React.useState(false);
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
-
-
-
-  const dispatch = useDispatch();
-
-  
-
-
+     console.log("your new", potluck)
 
   const Reply = () => {
     return (
@@ -56,16 +43,16 @@ export default function PotluckStandalone(props) {
     );
   };
 
+  console.log("length", potluck)
+  if (!potluck) {
+    return (
+     <Text>Loading...</Text> 
+    )
+  } else {
   return (
-          <ScrollView
-            refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-        >
-          <Card>
+    <ScrollView>
+      
+      <Card>
         <Card.Title>
           <Text>{potluck.potluckTitle}</Text>
         </Card.Title>
@@ -91,8 +78,10 @@ export default function PotluckStandalone(props) {
         <Reply />
       </Card>
 
-      <Bringing potluck={potluck}/>
+      <Bringing potluck={potluck} />
 
     </ScrollView>
   );
+
+        }
 }

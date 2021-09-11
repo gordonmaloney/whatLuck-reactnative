@@ -17,8 +17,13 @@ import ReactChipsInput from "react-native-chips";
 import { Input, CheckBox } from "react-native-elements";
 import randomWords from "random-words";
 import { createPotluck } from "../actions/potlucks";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CreatePotluck() {
+  const potlucks = useSelector((state) => state.potlucks);
+
+  const navigation = useNavigation();
+
   const [potluckData, setPotluckData] = useState({
     potluckHost: "",
     potluckTitle: "",
@@ -37,9 +42,12 @@ export default function CreatePotluck() {
     dispatch(createPotluck(potluckData));
 
     //reset form
-    //setPotluckData({ ...potluckData, potluckHost: "", potluckTitle: "", potluckTheme: "", essentials: [], private: false, errMessHost: false, errMessTitle: false })
+    setPotluckData({ ...potluckData, potluckHost: "", potluckTitle: "", potluckTheme: "", essentials: [], private: false, errMessHost: false, errMessTitle: false })
 
-    //window.location.href = `/potlucks/${potluckData.idCode}`
+    //redirect to new potluck
+    navigation.navigate("YourNewPotluck", { 
+      idCode: potluckData.idCode,
+    })
   };
 
   return (

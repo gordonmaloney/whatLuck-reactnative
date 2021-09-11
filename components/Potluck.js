@@ -16,7 +16,7 @@ export default function Potluck({ item }) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("PotluckStandalone", {
-            potluck: { potluck: potluck },
+            idCode: potluck.idCode,
           })
         }
       >

@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import { getPotlucks } from "../actions/potlucks";
 import Potluck from "./Potluck";
+
+
 export default function PotluckList() {
     const dispatch = useDispatch();
 
