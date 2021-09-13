@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ScrollView, View, Text, FlatList } from "react-native";
+import { ScrollView, View, Text, FlatList, RefreshControl, SafeAreaView, Button, Share } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import Bringing from './Bringing'

@@ -9,15 +9,21 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   StyleSheet,
+  Dimensions
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { Formik } from "formik";
-import ReactChipsInput from "react-native-chips";
 //import { TextField } from 'rn-material-ui-textfield';
 import { Input, CheckBox } from "react-native-elements";
 import randomWords from "random-words";
 import { createPotluck } from "../actions/potlucks";
 import { useNavigation } from "@react-navigation/native";
+
+import ReactChipsInput from "react-native-chips";
+import {Icon} from 'react-native-elements';
+
+import { Chip } from 'react-native-elements';
+
 
 export default function CreatePotluck() {
   const potlucks = useSelector((state) => state.potlucks);
@@ -38,16 +44,24 @@ export default function CreatePotluck() {
   const dispatch = useDispatch();
 
   const handleSubmit = (potluckData) => {
-    console.log(potluckData);
     dispatch(createPotluck(potluckData));
 
     //reset form
-    setPotluckData({ ...potluckData, potluckHost: "", potluckTitle: "", potluckTheme: "", essentials: [], private: false, errMessHost: false, errMessTitle: false })
+    setPotluckData({
+      ...potluckData,
+      potluckHost: "",
+      potluckTitle: "",
+      potluckTheme: "",
+      essentials: [],
+      private: false,
+      errMessHost: false,
+      errMessTitle: false,
+    });
 
     //redirect to new potluck
-    navigation.navigate("YourNewPotluck", { 
+    navigation.navigate("Potluck", {
       idCode: potluckData.idCode,
-    })
+    });
   };
 
   return (
@@ -88,6 +102,7 @@ export default function CreatePotluck() {
           }
         />
 
+{/*
         <Input
           placeholder="Essentials"
           onBlur={() => {}}
@@ -96,21 +111,21 @@ export default function CreatePotluck() {
             setPotluckData({ ...potluckData, essentials: e })
           }
         />
-
-        {/*
+        */}
+        
 < ReactChipsInput 
-    label="Essentials" initialChips={[]} 
+    label="Essentials"
+    initialChips={potluckData.essentials}
     //onChangeChips={(chips) => console.log(chips)} 
-    alertRequired={false} 
-    chipStyle={{ borderColor: 'blue', backgroundColor: 'blue' }} 
-    inputStyle={{fontSize: 14}} 
-    labelStyle={{ color: 'grey', fontSize: 14, padding: 0}} 
-    labelOnBlur={{ color: '#666' }} 
-    //value={potluckData.essentials}
-    onChangeChips={(chips) => setPotluckData({ ...potluckData, essentials: chips })}
+    onChangeChips={(chips) => setPotluckData({ ...potluckData, essentials: chips})}
+    //alertRequired={true} 
+    chipStyle={{ borderColor: 'blue', backgroundColor: 'grey' }} 
+    inputStyle={{fontSize: 22}} 
+    labelStyle={{ color: 'blue'}} 
+    labelOnBlur={{ color: '#666' }} />
 
-    />
-*/}
+
+          <Button onPress={() => console.log(potluckData)} title="check" />
 
         <CheckBox
           title="Private?"

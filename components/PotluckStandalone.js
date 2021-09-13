@@ -1,13 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ScrollView, View, Text, FlatList, RefreshControl, SafeAreaView } from "react-native";
+import { ScrollView, View, Text, FlatList, RefreshControl, SafeAreaView, Button, Share } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import Bringing from './Bringing'
 import { updatePotluck } from "../actions/potlucks";
 import { render } from "react-dom";
-
+import { StyleSheet } from "react-native";
 
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -30,7 +30,25 @@ export default function PotluckStandalone(props) {
 
   const dispatch = useDispatch();
 
-  
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          `Join me for a potluck | whatLuck https://whatluck.netlify.app/potlucks/${potluck.idCode}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 
 
@@ -42,7 +60,6 @@ export default function PotluckStandalone(props) {
             <Card>
               <Card.Title>{reply.bringer} is bringing...</Card.Title>
               <Card.Divider />
-
               {reply.bringing.map((bringItem, index) => {
                   return (
                     <Text>{bringItem}{index < reply.bringing.length - 2 ? ", " : ""}{index === reply.bringing.length - 2 ? " and " : ""}</Text>
@@ -63,10 +80,12 @@ export default function PotluckStandalone(props) {
   } else {
   return (
             <ScrollView
+            style={styles.page}
             refreshControl={
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
+              
             />
           }
         >
@@ -75,6 +94,9 @@ export default function PotluckStandalone(props) {
           <Text>{potluck.potluckTitle}</Text>
         </Card.Title>
         <Card.Divider />
+
+        <Button onPress={onShare} title="Invite your friends" />
+
 
         <Text>Host: {potluck.potluckHost}</Text>
         <Text>Theme: {potluck.potluckTheme}</Text>
@@ -103,3 +125,10 @@ export default function PotluckStandalone(props) {
   );
 }
 }
+
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: 'lightblue'
+  }
+
+})
