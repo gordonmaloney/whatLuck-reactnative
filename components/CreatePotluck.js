@@ -9,20 +9,17 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { Formik } from "formik";
-//import { TextField } from 'rn-material-ui-textfield';
+import { TextField } from 'rn-material-ui-textfield';
 import { Input, CheckBox } from "react-native-elements";
 import randomWords from "random-words";
 import { createPotluck } from "../actions/potlucks";
 import { useNavigation } from "@react-navigation/native";
 
-import ReactChipsInput from "react-native-chips";
-import {Icon} from 'react-native-elements';
-
-import { Chip } from 'react-native-elements';
+import ReactChipsInput from "react-native-chips"; //note that I tweaked this great package to use material ui textfield, rather than react native text input
 
 
 export default function CreatePotluck() {
@@ -69,9 +66,9 @@ export default function CreatePotluck() {
       <Text>Create a Potluck</Text>
 
       <View>
-        <Input
-          placeholder="Title"
-          onBlur={() => {}}
+
+        <TextField 
+          label='Title *'
           value={potluckData.potluckTitle}
           onChangeText={(e) =>
             setPotluckData({
@@ -80,10 +77,10 @@ export default function CreatePotluck() {
               errMessTitle: false,
             })
           }
-        />
-        <Input
-          placeholder="Host"
-          onBlur={() => {}}
+          />
+
+        <TextField 
+          label='Host *'
           value={potluckData.potluckHost}
           onChangeText={(e) =>
             setPotluckData({
@@ -92,17 +89,23 @@ export default function CreatePotluck() {
               errMessHost: false,
             })
           }
-        />
-        <Input
-          placeholder="Theme"
-          onBlur={() => {}}
-          value={potluckData.potluckTheme}
-          onChangeText={(e) =>
-            setPotluckData({ ...potluckData, potluckTheme: e })
-          }
-        />
+          />
 
-{/*
+
+        <TextField 
+          label='Theme'
+          value={potluckData.potluckTheme}
+
+          onChangeText={(e) =>
+            setPotluckData({
+              ...potluckData,
+              potluckTheme: e
+            })
+          }
+          />
+
+
+       {/*
         <Input
           placeholder="Essentials"
           onBlur={() => {}}
@@ -112,20 +115,19 @@ export default function CreatePotluck() {
           }
         />
         */}
-        
-< ReactChipsInput 
-    label="Essentials"
-    initialChips={potluckData.essentials}
-    //onChangeChips={(chips) => console.log(chips)} 
-    onChangeChips={(chips) => setPotluckData({ ...potluckData, essentials: chips})}
-    //alertRequired={true} 
-    chipStyle={{ borderColor: 'blue', backgroundColor: 'grey' }} 
-    inputStyle={{fontSize: 22}} 
-    labelStyle={{ color: 'blue'}} 
-    labelOnBlur={{ color: '#666' }} />
 
+        <ReactChipsInput
+          label="Essentials"
+          initialChips={potluckData.essentials}
+          onChangeChips={(chips) =>
+            setPotluckData({ ...potluckData, essentials: chips })
+          }
+          chipStyle={{ borderColor: "white", backgroundColor: "rgb(0, 145, 234)" }}
+          inputStyle={{ fontSize: 16, marginBottom: 0, paddingLeft: 0, height: 24, paddingBottom: 0, marginTop: 0 }}
+          labelStyle={{ paddingLeft: 0, color: "grey"}}
+          labelOnBlur={{ color: 'rgb(0, 145, 234)', fontSize: 13 }}
+        />
 
-          <Button onPress={() => console.log(potluckData)} title="check" />
 
         <CheckBox
           title="Private?"

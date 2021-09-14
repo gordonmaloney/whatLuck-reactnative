@@ -11,11 +11,11 @@ import {
   StyleSheet,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import ReactChipsInput from "react-native-chips";
+import ReactChipsInput from "react-native-chips"; //note that I tweaked this great package to use material ui textfield, rather than react native text input
 import { Input, CheckBox } from "react-native-elements";
 import { Card } from "react-native-elements/";
 import { updatePotluck } from "../actions/potlucks";
-
+import { TextField } from "rn-material-ui-textfield";
 
 export default function Bringing({potluck}) {
 
@@ -47,9 +47,8 @@ export default function Bringing({potluck}) {
         <Card.Divider />
 
 
-        <Input
-          placeholder="Bringer"
-          onBlur={() => {}}
+        <TextField
+          label="Bringer *"
           value={bringerData.bringer}
           onChangeText={(e) =>
             setBringerData({
@@ -58,19 +57,24 @@ export default function Bringing({potluck}) {
               errMessBringer: false,
             })
           }
-        />
+          />
 
-        <Input
-          placeholder="Bringing"
-          onBlur={() => {}}
-          value={bringerData.bringing}
-          onChangeText={(e) =>
+     
+
+<ReactChipsInput
+          label="Bringing *"
+          initialChips={bringerData.bringing}
+          onChangeChips={(e) =>
             setBringerData({
               ...bringerData,
               bringing: e,
               errMessBringing: false,
             })
           }
+          chipStyle={{ borderColor: "white", backgroundColor: "rgb(0, 145, 234)" }}
+          inputStyle={{ fontSize: 16, marginBottom: 0, paddingLeft: 0, height: 24, paddingBottom: 0, marginTop: 0 }}
+          labelStyle={{ paddingLeft: 0, color: "grey"}}
+          labelOnBlur={{ color: 'rgb(0, 145, 234)', fontSize: 13 }}
         />
 
         <Button
