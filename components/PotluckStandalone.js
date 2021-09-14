@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ScrollView, View, Text, FlatList, RefreshControl, SafeAreaView, Button, Share } from "react-native";
+import { ScrollView, View, Text, FlatList, RefreshControl, SafeAreaView, Button, Share, ImageBackground } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import Bringing from './Bringing'
@@ -54,6 +54,7 @@ export default function PotluckStandalone(props) {
 
   const Reply = () => {
     return (
+
       <View>
         {potluck.replies.map((reply) => {
           return (
@@ -79,6 +80,10 @@ export default function PotluckStandalone(props) {
     )
   } else {
   return (
+    <ImageBackground
+    source={require("../images/background.png")}
+    style={{ width: "100%", height: "100%", alignItems: "center" }}
+  >
             <ScrollView
             style={styles.page}
             refreshControl={
@@ -121,14 +126,15 @@ export default function PotluckStandalone(props) {
       <Bringing potluck={potluck}/>
 
     </ScrollView>
-  
+      </ImageBackground>
+
   );
 }
 }
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: 'lightblue'
-  }
+    width: '90%'  
+}
 
 })

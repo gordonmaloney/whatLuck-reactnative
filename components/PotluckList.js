@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { View, Text, FlatList, RefreshControl, ScrollView } from "react-native";
+import { View, Text, FlatList, RefreshControl, ScrollView, ImageBackground } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import { getPotlucks } from "../actions/potlucks";
@@ -29,6 +29,8 @@ export default function PotluckList() {
 
   console.log(potlucks);
   return (
+    <ImageBackground source={require('../images/background.png')} style={{width: '100%', height: '100%', alignItems: 'center',}}>
+
     <ScrollView
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -44,5 +46,6 @@ export default function PotluckList() {
         )}
       />
     </ScrollView>
+    </ImageBackground>
   );
 }

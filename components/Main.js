@@ -18,7 +18,7 @@ import YourNewPotluck from "./YourNewPotluck";
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transperent'}}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Home />
     </View>
   );
@@ -26,7 +26,7 @@ function HomeScreen({ navigation }) {
 
 function CreatePotluckScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightblue' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <CreatePotluck />
 
     </View>
@@ -35,7 +35,7 @@ function CreatePotluckScreen({ navigation }) {
 
 function PotluckListScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'lightblue' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <PotluckList />
     </View>
   );

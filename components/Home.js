@@ -18,10 +18,12 @@ export default function Home() {
   }
 
   return (
+    <ImageBackground source={require('../images/background.png')} style={{width: '100%', height: '100%', alignItems: 'center',}}>
+
     <View style={styles.container}>
 
       <View style={styles.image}>
-        <Image source={require('../images/whatluck-logo.png')}  style={{ align: 'center', width: 250, height: 102, marginBottom: 5 }} />
+        <Image source={require('../images/whatluck-logo.png')} style={{width: 201, height: 82}} />
       </View>  
         <Text style={styles.header}>whatLuck is the one-stop potluck organising app.</Text>
         <Text style={styles.para}>Having a potluck, barbeque, or friends round for drinks and snacks? Then you're in the right place.</Text>
@@ -29,6 +31,8 @@ export default function Home() {
         <Text style={styles.para}>No more barbeques ruined by everyone bringing buns. No more hundred tubs of hummous. No more ten thousand spoons when all you need is a knife.</Text>
     
     </View>
+    </ImageBackground>
+
   );
 }
 
@@ -44,7 +48,10 @@ link: {
 },
   container: {
     width: '80%',
-    paddingBottom: 50
+    paddingBottom: 50,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   header: {
     fontSize: 25,

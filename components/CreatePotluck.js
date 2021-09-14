@@ -7,9 +7,10 @@ import {
   Button,
   TouchableWithoutFeedback,
   StyleSheet,
+  ImageBackground,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { TextField } from 'rn-material-ui-textfield';
+import { TextField } from "rn-material-ui-textfield";
 import { CheckBox } from "react-native-elements";
 import randomWords from "random-words";
 import { createPotluck } from "../actions/potlucks";
@@ -17,9 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Card } from "react-native-elements";
 import ReactChipsInput from "react-native-chips"; //note that I tweaked this great package to use material ui textfield, rather than react native text input
 
-
-import * as Haptics from 'expo-haptics';
-
+import * as Haptics from "expo-haptics";
 
 export default function CreatePotluck() {
   const potlucks = useSelector((state) => state.potlucks);
@@ -40,7 +39,7 @@ export default function CreatePotluck() {
   const dispatch = useDispatch();
 
   const handleSubmit = (potluckData) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     dispatch(createPotluck(potluckData));
 
     //reset form
@@ -62,53 +61,55 @@ export default function CreatePotluck() {
   };
 
   return (
-    <View style={styles.container}>
-      <Card featuredTitle="Create a Potluck" style={{ borderRadius: 20, overflow: "hidden"}}>
+    <ImageBackground
+      source={require("../images/background.png")}
+      style={{ width: "100%", height: "100%", alignItems: "center" }}
+    >
+      <View style={styles.container}>
+        <Card
+          featuredTitle="Create a Potluck"
+          style={{ borderRadius: 20, overflow: "hidden" }}
+        >
+          <Card.Title>Create a Potluck</Card.Title>
+          <Card.Divider />
 
-      <Card.Title>Create a Potluck</Card.Title>
-      <Card.Divider/>
+          <View>
+            <TextField
+              label="Title *"
+              value={potluckData.potluckTitle}
+              onChangeText={(e) =>
+                setPotluckData({
+                  ...potluckData,
+                  potluckTitle: e,
+                  errMessTitle: false,
+                })
+              }
+            />
 
-      <View>
+            <TextField
+              label="Host *"
+              value={potluckData.potluckHost}
+              onChangeText={(e) =>
+                setPotluckData({
+                  ...potluckData,
+                  potluckHost: e,
+                  errMessHost: false,
+                })
+              }
+            />
 
-        <TextField 
-          label='Title *'
-          value={potluckData.potluckTitle}
-          onChangeText={(e) =>
-            setPotluckData({
-              ...potluckData,
-              potluckTitle: e,
-              errMessTitle: false,
-            })
-          }
-          />
+            <TextField
+              label="Theme"
+              value={potluckData.potluckTheme}
+              onChangeText={(e) =>
+                setPotluckData({
+                  ...potluckData,
+                  potluckTheme: e,
+                })
+              }
+            />
 
-        <TextField 
-          label='Host *'
-          value={potluckData.potluckHost}
-          onChangeText={(e) =>
-            setPotluckData({
-              ...potluckData,
-              potluckHost: e,
-              errMessHost: false,
-            })
-          }
-          />
-
-
-        <TextField 
-          label='Theme'
-          value={potluckData.potluckTheme}
-
-          onChangeText={(e) =>
-            setPotluckData({
-              ...potluckData,
-              potluckTheme: e
-            })
-          }
-          />
-
-
-       {/*
+            {/*
         <Input
           placeholder="Essentials"
           onBlur={() => {}}
@@ -119,54 +120,76 @@ export default function CreatePotluck() {
         />
         */}
 
-        <ReactChipsInput
-          label="Essentials"
-          initialChips={potluckData.essentials}
-          onChangeChips={(chips) =>
-            setPotluckData({ ...potluckData, essentials: chips })
-          }
-          chipStyle={{ borderColor: "white", backgroundColor: "rgb(0, 145, 234)" }}
-          inputStyle={{ fontSize: 16, marginBottom: 0, paddingLeft: 0, height: 24, paddingBottom: 0, marginTop: 0 }}
-          labelStyle={{ paddingLeft: 0, color: "grey"}}
-          labelOnBlur={{ color: 'rgb(0, 145, 234)', fontSize: 13 }}
-        />
+            <ReactChipsInput
+              label="Essentials"
+              initialChips={potluckData.essentials}
+              onChangeChips={(chips) =>
+                setPotluckData({ ...potluckData, essentials: chips })
+              }
+              chipStyle={{
+                borderColor: "white",
+                backgroundColor: "rgb(0, 145, 234)",
+              }}
+              inputStyle={{
+                fontSize: 16,
+                marginBottom: 0,
+                paddingLeft: 0,
+                height: 24,
+                paddingBottom: 0,
+                marginTop: 0,
+              }}
+              labelStyle={{ paddingLeft: 0, color: "grey" }}
+              labelOnBlur={{ color: "rgb(0, 145, 234)", fontSize: 13 }}
+            />
 
+            <CheckBox
+              title="Private?"
+              checked={potluckData.private}
+              containerStyle={{
+                backgroundColor: "transparent",
+                borderWidth: 0,
+                paddingLeft: 0,
+              }}
+              onPress={() =>
+                setPotluckData({
+                  ...potluckData,
+                  private: !potluckData.private,
+                })
+              }
+            />
 
-        <CheckBox
-          title="Private?"
-          checked={potluckData.private}
-          containerStyle={{backgroundColor: "transparent", borderWidth: 0, paddingLeft: 0}}
-          onPress={() =>
-            setPotluckData({ ...potluckData, private: !potluckData.private })
-          }
-        />
+            {potluckData.errMessHost === true ||
+            potluckData.errMessTitle === true ? (
+              <Text>You must enter a host and a title</Text>
+            ) : (
+              <View></View>
+            )}
 
-
-{potluckData.errMessHost === true || potluckData.errMessTitle === true ?
-  <Text>You must enter a host and a title</Text>
-  :
-<View></View>}
-
-{potluckData.potluckHost && potluckData.potluckTitle ?
-        <Button
-          onPress={() => {
-            handleSubmit(potluckData);
-          }}
-          title="Submit"
-        />
-        :
-
-        <Button
-          onPress={(e) =>
-            potluckData.potluckHost === "" ? setPotluckData({ ...potluckData, errMessHost: true}) : potluckData.potluckTitle === "" ? setPotluckData({ ...potluckData, errMessTitle: true }) : <></>
-          }
-          title="Submit"
-        />
-}
-
+            {potluckData.potluckHost && potluckData.potluckTitle ? (
+              <Button
+                onPress={() => {
+                  handleSubmit(potluckData);
+                }}
+                title="Submit"
+              />
+            ) : (
+              <Button
+                onPress={(e) =>
+                  potluckData.potluckHost === "" ? (
+                    setPotluckData({ ...potluckData, errMessHost: true })
+                  ) : potluckData.potluckTitle === "" ? (
+                    setPotluckData({ ...potluckData, errMessTitle: true })
+                  ) : (
+                    <></>
+                  )
+                }
+                title="Submit"
+              />
+            )}
+          </View>
+        </Card>
       </View>
-      </Card>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -178,5 +201,5 @@ const styles = StyleSheet.create({
   },
   chipinput: {
     height: 100,
-  }
+  },
 });
