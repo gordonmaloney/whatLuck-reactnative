@@ -141,12 +141,29 @@ export default function CreatePotluck() {
           }
         />
 
+
+{potluckData.errMessHost === true || potluckData.errMessTitle === true ?
+  <Text>You must enter a host and a title</Text>
+  :
+<View></View>}
+
+{potluckData.potluckHost && potluckData.potluckTitle ?
         <Button
           onPress={() => {
             handleSubmit(potluckData);
           }}
           title="Submit"
         />
+        :
+
+        <Button
+          onPress={(e) =>
+            potluckData.potluckHost === "" ? setPotluckData({ ...potluckData, errMessHost: true}) : potluckData.potluckTitle === "" ? setPotluckData({ ...potluckData, errMessTitle: true }) : <></>
+          }
+          title="Submit"
+        />
+}
+
       </View>
       </Card>
     </View>

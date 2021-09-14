@@ -79,12 +79,38 @@ export default function Bringing({potluck}) {
           labelOnBlur={{ color: 'rgb(0, 145, 234)', fontSize: 13 }}
         />
 
+
+{bringerData.errMessBringer === true ||
+            bringerData.errMessBringing === true ? (
+              <Text>
+                You must enter your name and say what you're bringing!
+              </Text>
+            ) : (
+              <View></View>
+            )}
+
+
+{bringerData.bringer && bringerData.bringing ? 
         <Button
           onPress={() => {
             handleSubmit(potluck.potluck, bringerData);
           }}
           title="Submit"
         />
+:
+<Button title="Submit"
+  onPress={() =>
+    bringerData.bringer === "" ? (
+      setBringerData({ ...bringerData, errMessBringer: true })
+    ) : bringerData.bringing === "" ? (
+      setBringerData({ ...bringerData, errMessBringing: true })
+    ) : (
+      console.log("test")
+    )
+  }
+/>
+}
+
       </Card>
     </View>
   );
