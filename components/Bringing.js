@@ -16,7 +16,7 @@ import { Input, CheckBox } from "react-native-elements";
 import { Card } from "react-native-elements/";
 import { updatePotluck } from "../actions/potlucks";
 import { TextField } from "rn-material-ui-textfield";
-
+import * as Haptics from 'expo-haptics'
 export default function Bringing({potluck}) {
 
     const [bringerData, setBringerData] = useState({
@@ -38,6 +38,8 @@ export default function Bringing({potluck}) {
 
     //reset form
     setBringerData({ bringer: "", bringing: [], errMessBringer: false, errMessBringing: false})
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+
   };
 
   return (

@@ -4,22 +4,21 @@ import { useSelector } from "react-redux";
 import {
   View,
   Text,
-  TextInput,
   Button,
-  Keyboard,
   TouchableWithoutFeedback,
   StyleSheet,
-  Dimensions,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { Formik } from "formik";
 import { TextField } from 'rn-material-ui-textfield';
-import { Input, CheckBox } from "react-native-elements";
+import { CheckBox } from "react-native-elements";
 import randomWords from "random-words";
 import { createPotluck } from "../actions/potlucks";
 import { useNavigation } from "@react-navigation/native";
-
+import { Card } from "react-native-elements";
 import ReactChipsInput from "react-native-chips"; //note that I tweaked this great package to use material ui textfield, rather than react native text input
+
+
+import * as Haptics from 'expo-haptics';
 
 
 export default function CreatePotluck() {
@@ -41,6 +40,7 @@ export default function CreatePotluck() {
   const dispatch = useDispatch();
 
   const handleSubmit = (potluckData) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
     dispatch(createPotluck(potluckData));
 
     //reset form
@@ -63,7 +63,10 @@ export default function CreatePotluck() {
 
   return (
     <View style={styles.container}>
-      <Text>Create a Potluck</Text>
+      <Card featuredTitle="Create a Potluck" style={{ borderRadius: 20, overflow: "hidden"}}>
+
+      <Card.Title>Create a Potluck</Card.Title>
+      <Card.Divider/>
 
       <View>
 
@@ -132,6 +135,7 @@ export default function CreatePotluck() {
         <CheckBox
           title="Private?"
           checked={potluckData.private}
+          containerStyle={{backgroundColor: "transparent", borderWidth: 0, paddingLeft: 0}}
           onPress={() =>
             setPotluckData({ ...potluckData, private: !potluckData.private })
           }
@@ -144,6 +148,7 @@ export default function CreatePotluck() {
           title="Submit"
         />
       </View>
+      </Card>
     </View>
   );
 }
@@ -156,5 +161,5 @@ const styles = StyleSheet.create({
   },
   chipinput: {
     height: 100,
-  },
+  }
 });

@@ -8,6 +8,8 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import PotluckStandalone from "./PotluckStandalone";
 
+import * as Haptics from 'expo-haptics'
+
 export default function Potluck({ item }) {
   const potluck = item;
   const navigation = useNavigation();
@@ -15,9 +17,9 @@ export default function Potluck({ item }) {
     <View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("Potluck", {
+          {navigation.navigate("Potluck", {
             idCode: potluck.idCode,
-          })
+          }); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
         }
       >
         <Card>
