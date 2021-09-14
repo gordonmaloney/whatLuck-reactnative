@@ -8,7 +8,6 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
-
 export default function Home() {
   const navigation = useNavigation();
 
@@ -16,6 +15,8 @@ export default function Home() {
     console.log("test")
     navigation.navigate('Create Potluck')
   }
+
+
 
   return (
     <ImageBackground source={require('../images/background.png')} style={{width: '100%', height: '100%', alignItems: 'center',}}>

@@ -63,12 +63,13 @@ export default function CreatePotluck() {
   return (
     <ImageBackground
       source={require("../images/background.png")}
-      style={{ width: "100%", height: "100%", alignItems: "center" }}
+      style={{ width: "100%", height: "100%", alignItems: "center", }}
     >
       <View style={styles.container}>
         <Card
           featuredTitle="Create a Potluck"
-          style={{ borderRadius: 20, overflow: "hidden" }}
+          containerStyle={{ borderRadius: 12, borderWidth: 1, elevation: 0, backgroundColor: 'rgba(255,255,255,0.5)', overflow: 'hidden' }}
+          style={{borderColor: 'rgba(255,255,255,0.1)'}}
         >
           <Card.Title>Create a Potluck</Card.Title>
           <Card.Divider />
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "90%",
-    paddingTop: 20,
+    paddingTop: 20
   },
   chipinput: {
     height: 100,
