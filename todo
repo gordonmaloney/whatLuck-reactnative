@@ -6,10 +6,16 @@
 //chip input
 //form validation
 //background img
+//check duplicates
+//fix all cards
+//hide navigation headers
+//margins
+//snackbar
+//render replies in potluck list
 
-
-snackbar
 fonts - https://mehrankhandev.medium.com/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4
 styling
-navigation headers
-checkduplicates
+
+search function???
+
+gestures

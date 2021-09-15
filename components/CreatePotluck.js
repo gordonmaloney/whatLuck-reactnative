@@ -57,6 +57,7 @@ export default function CreatePotluck() {
     //redirect to new potluck
     navigation.navigate("Potluck", {
       idCode: potluckData.idCode,
+      success: true
     });
   };
 
@@ -67,8 +68,7 @@ export default function CreatePotluck() {
     >
       <View style={styles.container}>
         <Card
-          featuredTitle="Create a Potluck"
-          containerStyle={{ borderRadius: 12, borderWidth: 1, elevation: 0, backgroundColor: 'rgba(255,255,255,0.5)', overflow: 'hidden' }}
+          containerStyle={{ borderRadius: 12, borderWidth: 1, elevation: 0, backgroundColor: 'rgba(255,255,255,0.6)', overflow: 'hidden' }}
           style={{borderColor: 'rgba(255,255,255,0.1)'}}
         >
           <Card.Title>Create a Potluck</Card.Title>
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "90%",
-    paddingTop: 20
+    justifyContent: 'center',
   },
   chipinput: {
     height: 100,

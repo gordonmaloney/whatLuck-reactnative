@@ -1,12 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { View, Text, FlatList, Image, ImageBackground } from "react-native";
+import { View, Text, FlatList, Image, ImageBackground, TouchableHighlight, TouchableWithoutFeedback } from "react-native";
 import { useDispatch } from "react-redux";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-
 
 export default function Home() {
   const navigation = useNavigation();
@@ -16,7 +14,7 @@ export default function Home() {
     navigation.navigate('Create Potluck')
   }
 
-
+  const [distance, setDistance] = useState(0);
 
   return (
     <ImageBackground source={require('../images/background.png')} style={{width: '100%', height: '100%', alignItems: 'center',}}>
@@ -30,8 +28,8 @@ export default function Home() {
         <Text style={styles.para}>Having a potluck, barbeque, or friends round for drinks and snacks? Then you're in the right place.</Text>
         <Text style={styles.para}>Simply <Text style={styles.link} onPress={handleCreateClick}>Create a Potluck</Text>, fill in the details, and share it with your friends. It is that easy.</Text>
         <Text style={styles.para}>No more barbeques ruined by everyone bringing buns. No more hundred tubs of hummous. No more ten thousand spoons when all you need is a knife.</Text>
-    
     </View>
+
     </ImageBackground>
 
   );
