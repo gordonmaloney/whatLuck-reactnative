@@ -1,16 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, PanResponder } from "react-native";
 import { useDispatch } from "react-redux";
 import { Card } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import PotluckStandalone from "./PotluckStandalone";
-
+import 'react-native-gesture-handler';
 import * as Haptics from "expo-haptics";
 
+import { Swipeable } from 'react-native-gesture-handler';
+
 export default function Potluck({ item }) {
+
   const potluck = item;
   const navigation = useNavigation();
 
@@ -22,9 +25,10 @@ export default function Potluck({ item }) {
 
     return (
       <View>
-        {replies.map((reply) => {
+        {replies.map((reply, i) => {
           return (
             <Card
+            key={`reply-${i}`}
               containerStyle={{
                 borderRadius: 12,
                 borderWidth: 1,
@@ -41,7 +45,7 @@ export default function Potluck({ item }) {
               <Text>
                 {reply.bringing.map((bringItem, index) => {
                   return (
-                    <Text>
+                    <Text key={`reply-${index}`}                    >
                       {bringItem}
                       {index < reply.bringing.length - 2 ? ", " : ""}
                       {index === reply.bringing.length - 2 ? " and " : ""}
@@ -54,6 +58,7 @@ export default function Potluck({ item }) {
         })}
         {potluck.replies.length > 3 ? (
           <Card
+
             containerStyle={{
               borderRadius: 12,
               borderWidth: 1,
@@ -72,49 +77,60 @@ export default function Potluck({ item }) {
     );
   };
 
+  const LeftActions = () => {
+
+    navigation.navigate("Potluck", {
+      idCode: potluck.idCode,
+    });
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    
+  }
+
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Potluck", {
-            idCode: potluck.idCode,
-          });
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        }}
-      >
-        <Card
-          containerStyle={{
-            borderRadius: 12,
-            borderWidth: 1,
-            elevation: 0,
-            backgroundColor: "rgba(255,255,255,0.6)",
-            overflow: "hidden",
+      <Swipeable onSwipeableLeftWillOpen={() => LeftActions()}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Potluck", {
+              idCode: potluck.idCode,
+            });
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}
-          style={{ borderColor: "rgba(255,255,255,0.1)" }}
         >
-          <Card.Title>
-            <Text>{potluck.potluckTitle}</Text>
-          </Card.Title>
-          <Card.Divider />
+          <Card
+            containerStyle={{
+              borderRadius: 12,
+              borderWidth: 1,
+              elevation: 0,
+              backgroundColor: "rgba(255,255,255,0.6)",
+              overflow: "hidden",
+            }}
+            style={{ borderColor: "rgba(255,255,255,0.1)" }}
+          >
+            <Card.Title>
+              <Text>{potluck.potluckTitle}</Text>
+            </Card.Title>
+            <Card.Divider />
 
-          <Text>Host: {potluck.potluckHost}</Text>
-          <Text>Theme: {potluck.potluckTheme}</Text>
-          <Text>
-            Essentials:
-            {item.essentials.map((essential, index) => {
-              return (
-                <Text>
-                  {" "}
-                  {essential}
-                  {index < potluck.essentials.length - 2 ? ", " : ""}
-                  {index === potluck.essentials.length - 2 ? " and " : ""}
-                </Text>
-              );
-            })}
-          </Text>
-          <Reply />
-        </Card>
-      </TouchableOpacity>
+            <Text>Host: {potluck.potluckHost}</Text>
+            <Text>Theme: {potluck.potluckTheme}</Text>
+            <Text>
+              Essentials:
+              {item.essentials.map((essential, index) => {
+                return (
+                  <Text key={index}>
+                    {" "}
+                    {essential}
+                    {index < potluck.essentials.length - 2 ? ", " : ""}
+                    {index === potluck.essentials.length - 2 ? " and " : ""}
+                  </Text>
+                );
+              })}
+            </Text>
+            <Reply />
+          </Card>
+        </TouchableOpacity>
+      </Swipeable>
     </View>
   );
 }

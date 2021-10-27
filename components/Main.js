@@ -46,6 +46,14 @@ function PotluckListScreen({ navigation }) {
   );
 }
 
+function PotluckStandaloneScreen(props) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <PotluckStandalone />
+    </View>
+  );
+}
+
 const Stack = createNativeStackNavigator();
 
 export default function Main() {

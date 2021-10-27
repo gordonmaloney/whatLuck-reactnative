@@ -56,12 +56,13 @@ link: {
     fontSize: 25,
     textAlign: 'center',
     marginBottom: 25,
-    fontWeight: "bold"
+    fontFamily: 'NotoSans_700Bold'
   },
   para: {
     fontSize: 18,
     textAlign: 'center',
-    marginBottom: 24
+    marginBottom: 24,
+    fontFamily: 'Montserrat_400Regular'
   }
 
 })

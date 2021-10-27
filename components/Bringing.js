@@ -18,7 +18,7 @@ import { updatePotluck } from "../actions/potlucks";
 import { TextField } from "rn-material-ui-textfield";
 import * as Haptics from "expo-haptics";
 import Snackbar from 'react-native-snackbar-component';
-
+import { TextButton } from 'react-native-material-buttons';
 
 export default function Bringing({ potluck, setReplySnack }) {
   const [bringerData, setBringerData] = useState({
@@ -85,6 +85,7 @@ export default function Bringing({ potluck, setReplySnack }) {
           elevation: 0,
           backgroundColor: "rgba(255,255,255,0.6)",
           overflow: "hidden",
+          marginBottom: 100
         }}
         style={{ borderColor: "rgba(255,255,255,0.1)" }}
       >
@@ -151,6 +152,7 @@ export default function Bringing({ potluck, setReplySnack }) {
         )}
         {bringerData.bringer && bringerData.bringing ? (
           <Button
+            color="#3f51b5"
             onPress={() => {
               handleSubmit(potluck.potluck, bringerData);
             }}
@@ -158,6 +160,7 @@ export default function Bringing({ potluck, setReplySnack }) {
           />
         ) : (
           <Button
+            color="#3f51b5"
             title="Submit"
             onPress={() =>
               bringerData.bringer === ""

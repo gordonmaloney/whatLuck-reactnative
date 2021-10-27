@@ -71,7 +71,7 @@ export default function CreatePotluck() {
           containerStyle={{ borderRadius: 12, borderWidth: 1, elevation: 0, backgroundColor: 'rgba(255,255,255,0.6)', overflow: 'hidden' }}
           style={{borderColor: 'rgba(255,255,255,0.1)'}}
         >
-          <Card.Title>Create a Potluck</Card.Title>
+          <Card.Title style={{fontFamily: "NotoSans_700Bold", fontSize: 24}}>Create a Potluck</Card.Title>
           <Card.Divider />
 
           <View>
@@ -175,6 +175,7 @@ export default function CreatePotluck() {
               />
             ) : (
               <Button
+                color="#3f51b5"
                 onPress={(e) =>
                   potluckData.potluckHost === "" ? (
                     setPotluckData({ ...potluckData, errMessHost: true })
