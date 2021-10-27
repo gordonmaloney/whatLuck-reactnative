@@ -38,14 +38,13 @@ export default function Potluck({ item }) {
               }}
               style={{ borderColor: "rgba(255,255,255,0.1)" }}
             >
-              <Card.Title>
-                <Text>{reply.bringer} is bringing...</Text>
-              </Card.Title>
+                <Text style={{fontSize: 16, fontFamily: 'NotoSans_700Bold'}}>
+                  {reply.bringer} is bringing...</Text>
               <Card.Divider />
               <Text>
                 {reply.bringing.map((bringItem, index) => {
                   return (
-                    <Text key={`reply-${index}`}                    >
+                    <Text style={{fontSize: 14, fontFamily: 'Montserrat_400Regular'}}>
                       {bringItem}
                       {index < reply.bringing.length - 2 ? ", " : ""}
                       {index === reply.bringing.length - 2 ? " and " : ""}
@@ -107,15 +106,21 @@ export default function Potluck({ item }) {
             }}
             style={{ borderColor: "rgba(255,255,255,0.1)" }}
           >
-            <Card.Title>
-              <Text>{potluck.potluckTitle}</Text>
-            </Card.Title>
+
+            <Text style={{fontSize: 25, fontFamily: 'NotoSans_700Bold'}}>
+{potluck.potluckTitle}</Text>
             <Card.Divider />
 
-            <Text>Host: {potluck.potluckHost}</Text>
-            <Text>Theme: {potluck.potluckTheme}</Text>
-            <Text>
-              Essentials:
+            <Text style={{fontSize: 16, fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>
+                  <Text style={{fontWeight: 'bold'}}>Host: </Text>
+                  {potluck.potluckHost}</Text>
+                  <Text style={{fontSize: 16, fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>
+                  <Text style={{fontWeight: 'bold'}}>Theme: </Text>{potluck.potluckTheme}</Text>
+                 
+                  {item.essentials.length>0 &&
+
+                  <Text style={{fontSize: 16, fontFamily: 'Montserrat_400Regular'}}>
+                  <Text style={{fontWeight: 'bold'}}>Essentials:</Text>
               {item.essentials.map((essential, index) => {
                 return (
                   <Text key={index}>
@@ -126,7 +131,7 @@ export default function Potluck({ item }) {
                   </Text>
                 );
               })}
-            </Text>
+            </Text>}
             <Reply />
           </Card>
         </TouchableOpacity>

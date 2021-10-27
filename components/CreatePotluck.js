@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import {
   View,
   Text,
-  Button,
   TouchableWithoutFeedback,
   StyleSheet,
   ImageBackground,
@@ -17,6 +16,8 @@ import { createPotluck } from "../actions/potlucks";
 import { useNavigation } from "@react-navigation/native";
 import { Card } from "react-native-elements";
 import ReactChipsInput from "react-native-chips"; //note that I tweaked this great package to use material ui textfield, rather than react native text input
+import { Button } from 'react-native-paper';
+
 
 import * as Haptics from "expo-haptics";
 
@@ -71,7 +72,8 @@ export default function CreatePotluck() {
           containerStyle={{ borderRadius: 12, borderWidth: 1, elevation: 0, backgroundColor: 'rgba(255,255,255,0.6)', overflow: 'hidden' }}
           style={{borderColor: 'rgba(255,255,255,0.1)'}}
         >
-          <Card.Title style={{fontFamily: "NotoSans_700Bold", fontSize: 24}}>Create a Potluck</Card.Title>
+                              <Text style={{fontSize: 25, fontFamily: 'NotoSans_700Bold'}}>
+Create a Potluck</Text>
           <Card.Divider />
 
           <View>
@@ -128,8 +130,6 @@ export default function CreatePotluck() {
                 setPotluckData({ ...potluckData, essentials: chips })
               }
               chipStyle={{
-                borderColor: "white",
-                backgroundColor: "rgb(0, 145, 234)",
               }}
               inputStyle={{
                 fontSize: 16,
@@ -161,20 +161,18 @@ export default function CreatePotluck() {
 
             {potluckData.errMessHost === true ||
             potluckData.errMessTitle === true ? (
-              <Text>You must enter a host and a title</Text>
+              <Text style={{fontSize: 14, color: "red", fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>You must enter a host and a title</Text>
             ) : (
               <View></View>
             )}
 
             {potluckData.potluckHost && potluckData.potluckTitle ? (
-              <Button
+              <Button mode="contained" uppercase={false}
                 onPress={() => {
                   handleSubmit(potluckData);
-                }}
-                title="Submit"
-              />
+                }}>Submit</Button>
             ) : (
-              <Button
+              <Button mode="contained" uppercase={false}
                 color="#3f51b5"
                 onPress={(e) =>
                   potluckData.potluckHost === "" ? (
@@ -184,9 +182,7 @@ export default function CreatePotluck() {
                   ) : (
                     <></>
                   )
-                }
-                title="Submit"
-              />
+                }>Submit</Button>
             )}
           </View>
         </Card>

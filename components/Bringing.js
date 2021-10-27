@@ -5,7 +5,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   Keyboard,
   TouchableWithoutFeedback,
   StyleSheet,
@@ -18,7 +17,7 @@ import { updatePotluck } from "../actions/potlucks";
 import { TextField } from "rn-material-ui-textfield";
 import * as Haptics from "expo-haptics";
 import Snackbar from 'react-native-snackbar-component';
-import { TextButton } from 'react-native-material-buttons';
+import { Button } from 'react-native-paper';
 
 export default function Bringing({ potluck, setReplySnack }) {
   const [bringerData, setBringerData] = useState({
@@ -85,11 +84,12 @@ export default function Bringing({ potluck, setReplySnack }) {
           elevation: 0,
           backgroundColor: "rgba(255,255,255,0.6)",
           overflow: "hidden",
-          marginBottom: 100
+          marginBottom: 150
         }}
         style={{ borderColor: "rgba(255,255,255,0.1)" }}
       >
-        <Card.Title>What are you bringing?</Card.Title>
+                    <Text style={{fontSize: 20, fontFamily: 'NotoSans_700Bold'}}>
+What are you bringing?</Text>
         <Card.Divider />
         <TextField
           label="Bringer *"
@@ -113,8 +113,6 @@ export default function Bringing({ potluck, setReplySnack }) {
             }); checkDuplicate(e);}
           }
           chipStyle={{
-            borderColor: "white",
-            backgroundColor: "rgb(0, 145, 234)",
           }}
           inputStyle={{
             fontSize: 16,
@@ -129,7 +127,7 @@ export default function Bringing({ potluck, setReplySnack }) {
         />
 
         {duplicates.length > 0 ? (
-        <Text>
+        <Text style={{fontSize: 14, color: "red", fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>
           Heads up! Someone is already bringing
           {duplicates.map((duplicate, index) => {
             return (
@@ -146,20 +144,22 @@ export default function Bringing({ potluck, setReplySnack }) {
 
         {bringerData.errMessBringer === true ||
         bringerData.errMessBringing === true ? (
-          <Text>You must enter your name and say what you're bringing!</Text>
+          <Text  style={{fontSize: 14, color: "red", fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>You must enter your name and say what you're bringing!</Text>
         ) : (
           <View></View>
         )}
         {bringerData.bringer && bringerData.bringing ? (
-          <Button
+          <Button mode="contained" uppercase={false}
             color="#3f51b5"
             onPress={() => {
               handleSubmit(potluck.potluck, bringerData);
             }}
-            title="Submit"
-          />
+          >
+            Submit
+            </Button>
         ) : (
           <Button
+          mode="contained" uppercase={false}
             color="#3f51b5"
             title="Submit"
             onPress={() =>
@@ -169,7 +169,7 @@ export default function Bringing({ potluck, setReplySnack }) {
                 ? setBringerData({ ...bringerData, errMessBringing: true })
                 : console.log("test")
             }
-          />
+          >Submit</Button>
         )}
       </Card>
 

@@ -6,7 +6,7 @@ import {
   Text,
   RefreshControl,
   SafeAreaView,
-  Button,
+  
   Share,
   ImageBackground,
   TouchableOpacity
@@ -19,7 +19,7 @@ import { render } from "react-dom";
 import { StyleSheet } from "react-native";
 import Snackbar from "react-native-snackbar-component";
 import { Swipeable, FlatList, ScrollView } from "react-native-gesture-handler";
-import { RaisedTextButton } from "react-native-material-buttons";
+import { Button } from 'react-native-paper';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -90,11 +90,12 @@ export default function PotluckStandalone(props) {
                 }}
                 style={{ borderColor: "rgba(255,255,255,0.1)" }}
               >
-                <Card.Title>{item.bringer} is bringing...</Card.Title>
+                <Text style={{fontSize: 20, fontFamily: 'NotoSans_700Bold'}}>
+                  {item.bringer} is bringing...</Text>
                 <Card.Divider />
                 {item.bringing.map((bringItem, index) => {
                   return (
-                    <Text key={`reply-${index}`}>
+                    <Text style={{fontSize: 14, fontFamily: 'Montserrat_400Regular'}}>
                       {bringItem}
                       {index < item.bringing.length - 2 ? ", " : ""}
                       {index === item.bringing.length - 2 ? " and " : ""}
@@ -141,17 +142,25 @@ export default function PotluckStandalone(props) {
                 }}
                 style={{ borderColor: "rgba(255,255,255,0.1)" }}
               >
-                <Card.Title>
-                  <Text>{potluck.potluckTitle}</Text>
-                </Card.Title>
+                
+                  <Text style={{fontSize: 25, fontFamily: 'NotoSans_700Bold'}}>
+                    {potluck.potluckTitle}
+                    </Text>
+                
                 <Card.Divider />
 
-                <RaisedTextButton  color="#3f51b5" onPress={onShare} title="Invite your friends" />
+                <Button mode="contained" uppercase={false} color="#3f51b5" onPress={onShare}>
+                Invite your friends
+                </Button>
 
-                <Text>Host: {potluck.potluckHost}</Text>
-                <Text>Theme: {potluck.potluckTheme}</Text>
-                <Text>
-                  Essentials:
+                <Text  style={{fontSize: 16, fontFamily: 'Montserrat_400Regular', marginTop: 10, marginBottom: 8}}>
+                  <Text style={{fontWeight: 'bold'}}>Host: </Text>
+                  {potluck.potluckHost}</Text>
+                  <Text style={{fontSize: 16, fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>
+                  <Text style={{fontWeight: 'bold'}}>Theme: </Text>{potluck.potluckTheme}</Text>
+                  
+                  {potluck.essentials.length>0 &&<Text style={{fontSize: 16, fontFamily: 'Montserrat_400Regular', marginBottom: 8}}>
+                  <Text style={{fontWeight: 'bold'}}>Essentials:</Text>
                   {potluck.essentials.map((essential, index) => {
                     return (
                       <Text key={index}>
@@ -163,7 +172,10 @@ export default function PotluckStandalone(props) {
                     );
                   })}
                 </Text>
-                <Card.Divider />
+                }
+
+
+                {potluck.replies>0 && <Card.Divider />}
 
                 <Reply />
               </Card>
